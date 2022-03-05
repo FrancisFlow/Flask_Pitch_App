@@ -1,4 +1,5 @@
 from . import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -10,6 +11,17 @@ class User(db.Model):
 
     def __repr__(self):
         return f'User  {self.username}'
+
+    @property
+    def password(self):
+        raise AttributeError("Password has no read attribute")
+    @password.setter
+    def password(self, password):
+        self.user_password = generate_password_hash(password)
+    
+    def verify_password(self, password):
+        return check_password_hash(self.user_password, password)
+    
 
 # class Comment(db.Model):
 #     __tablename__ = 'comments'
