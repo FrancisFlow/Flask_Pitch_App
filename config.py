@@ -3,7 +3,7 @@ import os
 class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS=False
-
+    SECRET_KEY='Madetowin'
 
 class DevConfig(Config):
 
