@@ -1,6 +1,13 @@
 import os
-
 class Config:
+    # simple mail transfer protocol server configurations
+    MAIL_SERVER='smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS=True
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+
+
 
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     SECRET_KEY='Madetowin'
