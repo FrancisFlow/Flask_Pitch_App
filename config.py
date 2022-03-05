@@ -7,10 +7,11 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
-
-
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     SECRET_KEY='Madetowin'
+    #PHOTOS DESTINATION
+
+    UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
 class DevConfig(Config):
 
