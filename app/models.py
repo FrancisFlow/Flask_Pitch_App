@@ -13,7 +13,8 @@ class User(UserMixin, db.Model):
     username=db.Column(db.String(255))
     email= db.Column(db.String(255), unique=True, index= True)
     user_password=db.Column(db.String(255))
-
+    bio=db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
 
     def __repr__(self):
         return f'User  {self.username}'
