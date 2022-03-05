@@ -1,11 +1,14 @@
 import os
 
 class Config:
-    pass
 
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
 
 
 class DevConfig(Config):
+
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://francis:Master@localhost/pitchworld'
+
 
     Debug = True
 
