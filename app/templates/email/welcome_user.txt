@@ -1,0 +1,10 @@
+Hello {{user.username}}
+
+Welcome to PitchArena
+
+Thank you for signing up to PitchArena, the grounds on which pitches are tested and winners born.
+We hope that you enjoy your use of PitchArena and can refine any pitch you would like to make.
+
+Opportunity presents itself in short bursts of seconds, make your 60 seconds count.
+Take a look around and enjoy. 
+__The PitchArena Team__
