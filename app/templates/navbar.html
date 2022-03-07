@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="color:black; background-color:aqua;">
+    <a class="navbar-brand" style="font-size: 30px;" href="/">Pitch Arena</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">🍀</span>
+    </button>
+    <div class="collapse navbar-collapse" style='padding-right:10px;' id="navbarNavDropdown">
+      <ul class="nav navbar-nav">
+        {% if current_user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="#"> {{current_user.username}} <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('main.profile', uname=current_user.username)}}"> My Profile </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"href="{{url_for('auth.logout')}}">Sign out </a>
+        </li>
+        {%else%}
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('auth.login')}}">Sign in</a>
+        </li>
+        {% endif %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            More Functions
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/new_pitch">Create a new pitch</a>
+            <a class="dropdown-item" href="{{url_for('main.update_pic', uname=current_user.username)}}">Update profile pic</a>
+            <br>
+            <a class="dropdown-item" href="{{url_for('main.update_profile', uname=current_user.username)}}">Update bio</a>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
