@@ -3,5 +3,16 @@
 
 
 {% block content %}
+{{pitch.pitch_body}}
+{{pitch.pitch_category}}
+{{pitch.posted_by}}
+
 {{wtf.quick_form(comment_form)}}
+{% for com in comment %}
+<p>{{ com.pitch_comment }}</p>
+{% endfor %}
+
+
+
+
 {% endblock %}
