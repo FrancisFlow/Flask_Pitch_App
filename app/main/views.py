@@ -1,10 +1,10 @@
 from flask import render_template, request, redirect, url_for, abort
 from . import main
 from ..models import User, Comment, Pitch
-from flask_login import login_required
+from flask_login import login_required, current_user
 from .forms import UpdateProfile, PitchForm, CommentForm
 from .. import db, photos
-pitch=Pitch
+
 @main.route('/')
 def index():
     """ 
@@ -53,20 +53,23 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile', uname=uname))
 
+#new comment route
 
-@main.route('/comment', methods=['GET', 'POST'])
+@main.route('/comment/new/<int:id>', methods=['GET','POST'])
 @login_required
-def comment(id):
-    form = CommentForm()
-
+def new_comment(id):
+    form=CommentForm()
+    comments=Comment.query.all()
     if form.validate_on_submit():
         pitch_comment= form.pitch_comment.data
-        new_pitch_comment= Comment(pitch_comment)
-        db.session.add(new_pitch_comment)
+        new_comment= Comment(pitch_comment=pitch_comment)
+        db.session.add(new_comment)
         db.session.commit()
-        return redirect(url_for('.index', id=id))
-    title= f'{pitch.id} comment'
-    return render_template('.comment', title - title, comment_form=form, pitch=pitch)
+        form.pitch_comment.data=""
+
+    return render_template('comment.html', comment_form=form, comments=comments)
+
+
 
 @main.route('/new_pitch', methods=['GET', 'POST'])
 def new_pitch():
@@ -75,9 +78,10 @@ def new_pitch():
     if form.validate_on_submit():
         pitch=form.pitch_body.data
         pitch_category= form.pitch_category.data
-        new_pitch=Pitch(pitch_body=pitch, pitch_category=pitch_category, pitch_upvote=0, pitch_downvote=0)
+        new_pitch=Pitch(pitch_body=pitch, pitch_category=pitch_category, pitch_upvote=0, pitch_downvote=0, posted_by=current_user.username)
         db.session.add(new_pitch)
         db.session.commit()
         return redirect(url_for('main.index'))
 
     return render_template('new_pitch.html', new_pitch_form=form)
+
