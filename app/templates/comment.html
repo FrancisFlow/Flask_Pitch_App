@@ -3,13 +3,23 @@
 
 
 {% block content %}
-{{pitch.pitch_body}}
-{{pitch.pitch_category}}
-{{pitch.posted_by}}
-
+<div class="card w-50" style="border:1px, solid;">
+    <div class="card-body">
+      <h5 class="card-title">Pitch Category: {{pitch.pitch_category}}</h5>
+      <p class="card-text">Pitch: {{pitch.pitch_body}}</p>
+      {%if pitch.posted_by == None%}
+      <p>Submitted by: Anonymous </p>
+      {% else %}
+      <p> Submitted by: {{pitch.posted_by}} </p>
+      {% endif %}
+    </div>
+  </div>
+<h3>Comments for this pitch</h3>
 {{wtf.quick_form(comment_form)}}
 {% for com in comment %}
-<p>{{ com.pitch_comment }}</p>
+<p>{{ com.pitch_comment }}
+</p>
+
 {% endfor %}
 
 
