@@ -10,7 +10,14 @@
 <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
 {% endif %} 
 </ul>
+<ul>
+{% for pitch in pitches %}
+<li>{{pitch.pitch_category}}</li>
+<li>
+    {{pitch.pitch_body}}
+</li>
+{% endfor %}
 
 
-{{message}}
+
 {% endblock %}
