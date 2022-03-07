@@ -4,3 +4,4 @@ instance/
 .gitignore
 *.pyc
 /requirements.txt
+.vscode/
