@@ -55,19 +55,21 @@ def update_pic(uname):
 
 #new comment route
 
-@main.route('/comment/new/<int:id>', methods=['GET','POST'])
+@main.route('/comment/new/<int:pitch_id>', methods=['GET','POST'])
 @login_required
-def new_comment(id):
+def new_comment(pitch_id):
     form=CommentForm()
-    comments=Comment.query.all()
+    comments=Comment.query.filter_by(pitch_id=pitch_id).all()
+    pitch=Pitch.query.get(pitch_id)
     if form.validate_on_submit():
         pitch_comment= form.pitch_comment.data
-        new_comment= Comment(pitch_comment=pitch_comment)
+        new_comment= Comment(pitch_comment=pitch_comment, user_id=current_user._get_current_object().id, pitch_id=pitch_id)
         db.session.add(new_comment)
         db.session.commit()
-        form.pitch_comment.data=""
 
-    return render_template('comment.html', comment_form=form, comments=comments)
+        return redirect(url_for('.new_comment', pitch_id=pitch_id))
+    
+    return render_template('comment.html', comment_form=form, comment=comments, pitch=pitch)
 
 
 
@@ -84,4 +86,5 @@ def new_pitch():
         return redirect(url_for('main.index'))
 
     return render_template('new_pitch.html', new_pitch_form=form)
+
 
