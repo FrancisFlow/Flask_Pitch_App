@@ -8,7 +8,9 @@
     <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
 {%else%}
 <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
-{% endif %} 
+{% endif %}
+<li> <a href="/new_pitch">Create a new pitch</a></li>
+
 </ul>
 <ul>
 {% for pitch in pitches %}
@@ -16,6 +18,11 @@
 <li>
     {{pitch.pitch_body}}
 </li>
+<li>{{pitch.posted_by}}</li>
+
+<button>Upvote: {{pitch.pitch_upvote}} </button>
+<button>Downvote: {{pitch.pitch_downvote}} </button>
+<button> <a href="/comment/new/{{pitch.id}}"> Comment as {{current_user.username}}</a></button>
 {% endfor %}
 
 
