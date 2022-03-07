@@ -1,14 +1,22 @@
 from flask import render_template, request, redirect, url_for, abort
 from . import main
-from ..models import User
+from ..models import User, Comment, Pitch
 from flask_login import login_required
-from .forms import UpdateProfile
+from .forms import UpdateProfile, PitchForm, CommentForm
 from .. import db, photos
-
+pitch=Pitch
 @main.route('/')
 def index():
-    message="You have correctly created a view function"
-    return render_template('index.html', message=message)
+    """ 
+    Root index page
+    """
+    title='PitchArena'
+    pitches=Pitch.query.all()
+    users= User.query.all()
+    product_pitch= Pitch.query.filter_by(pitch_category='product_pitch').all()
+    pickupline_pitch= Pitch.query.filter_by(pitch_category='pickuplines').all()
+    return render_template('index.html', title=title, pitches=pitches, pickuplines=pickupline_pitch, users=users, product_pitch=product_pitch)
+
 
 @main.route('/user/<uname>')
 def profile(uname):
@@ -44,3 +52,32 @@ def update_pic(uname):
         user.profile_pic_path= path
         db.session.commit()
     return redirect(url_for('main.profile', uname=uname))
+
+
+@main.route('/comment', methods=['GET', 'POST'])
+@login_required
+def comment(id):
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        pitch_comment= form.pitch_comment.data
+        new_pitch_comment= Comment(pitch_comment)
+        db.session.add(new_pitch_comment)
+        db.session.commit()
+        return redirect(url_for('.index', id=id))
+    title= f'{pitch.id} comment'
+    return render_template('.comment', title - title, comment_form=form, pitch=pitch)
+
+@main.route('/new_pitch', methods=['GET', 'POST'])
+def new_pitch():
+    form = PitchForm()
+
+    if form.validate_on_submit():
+        pitch=form.pitch_body.data
+        pitch_category= form.pitch_category.data
+        new_pitch=Pitch(pitch_body=pitch, pitch_category=pitch_category, pitch_upvote=0, pitch_downvote=0)
+        db.session.add(new_pitch)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+
+    return render_template('new_pitch.html', new_pitch_form=form)
