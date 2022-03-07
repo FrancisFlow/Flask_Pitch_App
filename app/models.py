@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     bio=db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     comments=db.relationship('Comment', backref='user', lazy="dynamic")
+    pitches= db.relationship('Pitch', backref='user', lazy='dynamic')
     
     def __repr__(self):
         return f'User  {self.username}'
@@ -63,9 +64,8 @@ class Pitch(db.Model):
     pitch_upvote = db.Column(db.Integer)
     pitch_downvote= db.Column(db.Integer)
     pitch_body=db.Column(db.String(300))
-    review=db.relationship('Comment', backref='pitch', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
+    comment= db.relationship('Comment', backref='pitch', lazy='dynamic')
 
     def save_pitch(self):
         db.session.add(self)
