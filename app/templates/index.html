@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content%}
-
 <ul>
 {% for pitch in pitches %}
-<li>{{pitch.pitch_category}}</li>
+<li style="padding-top:8px" >{{pitch.pitch_category}}</li>
 <li>
     {{pitch.pitch_body}}
 </li>
 <li>{{pitch.posted_by}}</li>
+<br>
 
-<button>Upvote: {{pitch.pitch_upvote}} </button>
-<button>Downvote: {{pitch.pitch_downvote}} </button>
+<button class="btn btn-success" >Upvote: {{pitch.pitch_upvote}} </button>
+<button class="btn btn-danger">Downvote: {{pitch.pitch_downvote}} </button>
 <button> <a href="/comment/new/{{pitch.id}}"> Comment as {{current_user.username}}</a></button>
 {% endfor %}
 
