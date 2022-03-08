@@ -31,6 +31,3 @@ For any questions, recommendations or feedback, feel free to reach me at francis
 
 Licensed under the MIT LICENSE.
 
-
-  -
-
