@@ -19,6 +19,7 @@ def index():
 
 
 @main.route('/user/<uname>')
+@login_required
 def profile(uname):
     user = User.query.filter_by(username=uname).first()
     users=User.query.all()
