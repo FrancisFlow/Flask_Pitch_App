@@ -3,5 +3,4 @@ instance/
 /start.sh
 .gitignore
 *.pyc
-/requirements.txt
 .vscode/
