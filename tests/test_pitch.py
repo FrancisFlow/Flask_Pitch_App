@@ -19,4 +19,8 @@ class PitchModelTest(unittest.TestCase):
         self.new_pitch.save_pitch()
         pitch=Pitch.get_pitch_by_id(400)
         self.assertEqual(pitch.pitch_category, "funny")
+    def test_get_pitch_by_category(self):
+        self.new_pitch.save_pitch()
+        got_pitch=Pitch.get_pitch("funny")
+        self.assertEqual(got_pitch.id, 400)
 

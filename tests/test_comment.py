@@ -6,7 +6,7 @@ from app import db
 class CommentModelTest(unittest.TestCase):
 
     def setUp(self):
-        self.new_comment=Comment(pitch_comment='Working on it')
+        self.new_comment=Comment(id=200, pitch_comment='Working on it')
         db.session.add(self.new_comment)
         db.session.commit()
 
@@ -20,3 +20,4 @@ class CommentModelTest(unittest.TestCase):
     
     def test_instance_variable(self):
         self.assertEquals(self.new_comment.pitch_comment, 'Working on it')
+    
