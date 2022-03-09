@@ -3,10 +3,12 @@
 {% block content %}
 
 {%if user==current_user%}
+<div>
 <a href="{{url_for('main.update_profile', uname=user.username)}}">Edit Profile</a>
+</div>
 {% endif %}
 
-<div style="text-align:left;"" >
+<div style="text-align:center;"" >
 <h3> {{user.username | capitalize}} </h3>
 
 {% if user.bio %}
@@ -20,14 +22,14 @@
 <!-- Display profile photo -->
 {% if user.profile_pic_path %}
 
-<div class="col-md-6">
+<div class="col-md-6" style="text-align:center;">
     <img src="{{url_for('static', filename=user.profile_pic_path)}}" alt="Profile photo" style="max-height:300px; max-width:300px; border-radius: 50%;">
     {% else %}
     <p>No profile picture</p>
     {% endif %}
 </div>
-<div  class="col-md-6" style="text-align:center;">
 {% if user==current_user %}
+<div  class="col-md-6" style="text-align:center; padding-bottom:20px; ">
 <h2 >Change profile picture</h2>
 <form action="{{ url_for('main.update_pic', uname=user.username)}}" method="post" enctype="multipart/form-data">
     <input type="file" name="photo" class="form-control" required>
@@ -36,12 +38,13 @@
 </form>
 </div>
 {% endif %}
-<div>
-<h3>My pitches</h3>
+ <!-- Diplaying user pitches -->
+<div class="col-md-12" style="display: grid;">
+<h3  style="text-align:center; padding-top:20px;" >My pitches</h3>
 {% for pitch in pitches %}
 {% if current_user.username==pitch.posted_by %}
 
-<div class="col-md-6">
+<div class="col-md-6" style="padding-top:10px;">
     <ul style="list-style:None;" >
 <li style="padding-top:8px" > Category: {{pitch.pitch_category}}</li>
 <li>
